@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
 <title>Tabuada Rocket 🚀</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -199,6 +199,52 @@ body{
   pointer-events:none;z-index:100;animation:floatUp 0.9s ease forwards;
 }
 @keyframes floatUp{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-70px);opacity:0}}
+
+/* ─── MOBILE RESPONSIVO ─── */
+@media (max-width: 600px) {
+
+  /* Zona de perguntas: empilha verticalmente */
+  .question-area {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  /* Conta maior para ler melhor */
+  .q-text {
+    font-size: clamp(36px, 10vw, 52px);
+  }
+
+  /* Botões de resposta maiores (área de toque ≥ 48px) */
+  .ans-btn {
+    padding: 14px 20px;
+    font-size: clamp(20px, 6vw, 28px);
+    flex: 1;
+    min-width: 60px;
+    touch-action: manipulation;
+  }
+
+  /* HUD menor */
+  .hud {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .hud-combo { display: none; }
+
+  /* Seleção de tabuada: chips menores */
+  .tc {
+    width: 46px;
+    height: 46px;
+    touch-action: manipulation;
+  }
+
+  /* Modos empilhados */
+  .mode-grid {
+    flex-direction: column;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -343,6 +389,11 @@ function resizeCanvas(){
   if(G){G.ry=canvas.height-44; G.rx=Math.min(G.rx,canvas.width-30);}
 }
 window.addEventListener('resize',resizeCanvas);
+// ─── MOBILE: reajusta ao virar tela ───
+window.addEventListener('orientationchange', () => {
+  setTimeout(resizeCanvas, 300);
+});
+// ─────────────────────────────────────
 
 // ── Game Start ───────────────────────────────────────────────
 function startGame(){
